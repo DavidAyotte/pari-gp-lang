@@ -1,0 +1,39 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "PARI/GP",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#letter" 
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.gp",
+				"match": "\\b(if|while|for|return)\\b"
+			}]
+		},
+		"strings": {
+			"name": "string.quoted.double.gp",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.gp",
+					"match": "\\\\."
+				}
+			]
+		},
+		"letter": {
+			"match": "1|2|3|4|5|6|7|8|9|0",
+			"name": "keyword.letter"
+		  }
+	},
+	"scopeName": "source.gp"
+}
