@@ -1,8 +1,8 @@
 # pari-gp-lang README
 
-This is the README for your extension "pari-gp-lang". After writing up a brief description, we recommend including the following sections.
+This extension for VS code defines syntax higlighting for PARI/GP
 
-## Features
+<!-- ## Features
 
 Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
 
@@ -62,4 +62,4 @@ Added features X, Y, and Z.
 * [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
 * [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
 
-**Enjoy!**
+**Enjoy!** -->
