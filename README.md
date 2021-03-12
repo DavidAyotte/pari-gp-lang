@@ -6,7 +6,7 @@ This syntax higlighting extension for vscode provides basic colorization for som
 
 Clone the repo and place it in your .vscode folder located at:
 
-Windows: C:\Users\<your-user-name>\.vscode\extensions
-Linux (WSL 2): /home/<your-user-name>/.vscode-server/extensions
-Linux: /home/<your-user-name>/.vscode/extensions
+* Windows: C:\Users\<your-user-name>\.vscode\extensions
+* Linux (WSL 2): /home/<your-user-name>/.vscode-server/extensions
+* Linux: /home/<your-user-name>/.vscode/extensions
 
