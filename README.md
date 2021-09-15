@@ -1,6 +1,6 @@
 # pari-gp-lang README
 
-This syntax higlighting extension for vscode provides basic colorization for some syntax of the gp language. 
+This syntax higlighting extension for vscode provides basic colorization for some syntax of the gp scripting language for [PARI/GP](https://pari.math.u-bordeaux.fr/).
 
 ## How to install it globally:
 
