@@ -1,39 +1,216 @@
 {
-	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-	"name": "PARI/GP",
-	"patterns": [
-		{
-			"include": "#keywords"
-		},
-		{
-			"include": "#strings"
-		},
-		{
-			"include": "#letter" 
-		}
-	],
-	"repository": {
-		"keywords": {
-			"patterns": [{
-				"name": "keyword.control.gp",
-				"match": "\\b(if|while|for|return)\\b"
-			}]
-		},
-		"strings": {
-			"name": "string.quoted.double.gp",
-			"begin": "\"",
-			"end": "\"",
-			"patterns": [
-				{
-					"name": "constant.character.escape.gp",
-					"match": "\\\\."
-				}
-			]
-		},
-		"letter": {
-			"match": "1|2|3|4|5|6|7|8|9|0",
-			"name": "keyword.letter"
-		  }
-	},
-	"scopeName": "source.gp"
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "PARI/GP",
+    "patterns": [
+        {   "include": "#comment"     },
+        {   "include": "#keyword"     },
+        {   "include": "#string"      },
+        {   "include": "#constant"    },
+        {   "include": "#operator"    },
+        {   "include": "#function"    },
+        {   "include": "#punctuation" },
+        {   "include": "#variable"    },
+        {   "include": "#whitespace"  },
+        {   "include": "#unhandled"   }
+    ],
+    "repository": {
+        "comment": {
+            "name"      : "comment.gp",
+            "patterns"  : [
+                {   "include": "#comment.block" },
+                {   "include": "#comment.line"  }
+            ]
+        },
+        "comment.block" : {
+            "name"          :   "comment.block.gp",
+            "begin"         :   "(?:(?<=(?:\\s|^)))\/\\*(?:(?=(?:\\s|$)))",
+            "end"           :   "\\*\/",
+            "beginCaptures" :   {   "0": {  "name": "markup.punctuation.comment.begin.gp" }   },
+            "endCaptures"   :   {   "0": {  "name": "markup.punctuation.comment.end.gp"   }   }
+        },
+        "comment.line" : {
+            "name"  : "comment.line.gp",
+            "match" : "(?:(?<=(?:\\s|^)))\\\\\\\\.*$"
+        },
+        "keyword": {
+            "patterns": [
+                {
+                    "name": "keyword.control.gp",
+                    "match": "\\b(if|for|forprime|forprimestep|forcomposite|forstep|fordiv|forfactored|forsquarefree|fordivfactored)\\b"
+                },
+                {
+                    "name": "keyword.control.gp",
+                    "match": "\\b(forvec|forpart|forperm|forsubset|forqfvec|forsubgroup|until|while|break|next|return)\\b"
+                },
+                {
+                    "name": "keyword.other.gp",
+                    "match": "(?:(?<=(?:\\s|^)))(##|#|\\\\d|\\\\gm?|\\\\p[bs]?|\\\\q|\\\\t|\\\\u|\\\\r)(?=\\s$)"
+                }
+            ]
+        },
+        "string": {
+            "name": "string.quoted.double.gp",
+            "begin": "\"",
+            "end": "\"",
+            "patterns": [
+                {
+                    "name": "constant.character.escape.gp",
+                    "match": "\\\\."
+                }
+            ]
+        },
+        "constant": {
+            "name": "constant",
+            "patterns": [
+                {
+                    "name" : "constant.language",
+                    "match": "(?<![[:alnum:]])(Pi|Euler|Catalan|I|O)(?![[:alnum:]])"
+                },
+                {   "include": "#constant.numeric.integer"  }
+            ]
+        },
+        "constant.numeric.integer" :{
+            "name": "constant.numeric.gp",
+            "patterns": [
+                {
+                    "name": "constant.numeric.gp",
+                    "match": "[+-]?0x[0-9A-F]+"
+                },
+                {
+                    "name": "constant.numeric.gp",
+                    "match": "(?<![[:alpha:]])[0-9]+"
+                }
+            ]
+        },
+        "operator": {
+            "name": "keyword.operator.gp",
+            "patterns": [
+                {
+                    "name": "keyword.operator.gp",
+                    "match": "('|&|<|=|>|!|\\\\|/|%|\\+|-|\\*|\\^|\\||#|~)"
+                },
+                {
+                    "name": "keyword.operator.gp",
+                    "match": "\\b(diffop|exponent|sign|max|min|bitand|bitneg|bitor|bitxor|bitnegimply|shiftmul|lex|cmp|shift|divrem|sqr|my)\\b"
+                }
+            ]
+        },
+        "function": {
+            "patterns": [
+                {
+                    "name": "entity.name.function.conversion.gp",
+                    "match": "\\b(Col|Vec|Vecsmall|Mat|List|Set|Map|Str|Mod|Pol|Polrev|Vecrev|Colrev|Ser|Strchr|Strprintf|Strtex|simplify|precision|bitprecision|localprec|localbitprec)\\b"
+                },
+                {
+                    "name": "entity.name.function.selector.gp",
+                    "match": "\\b(numerator|denominator|component)\\b"
+                },
+                {
+                    "name": "entity.name.function.random.gp",
+                    "match": "\\b(random|randomprime|getrand|setrand)\\b"
+                },
+                {
+                    "name": "entity.name.function.conjugates.lifts.gp",
+                    "match": "\\b(conj|norm|normlp|norml2|lift|centerlift|liftall|liftint|liftpol)\\b"
+                },
+                {
+                    "name": "entity.name.function.containers.set.gp",
+                    "match": "\\b(setintersect|setminus|setunion|setsearch|setbinop|setisset)\\b"
+                },
+                {
+                    "name": "entity.name.function.containers.list.gp",
+                    "match": "\\b(listput|listpop|listinsert|listsort)\\b"
+                },
+                {
+                    "name": "entity.name.function.containers.map.gp",
+                    "match": "\\b(mapput|mapget|mapisdefined|mapdelete)\\b"
+                },
+                {
+                    "name": "entity.name.function.closures.gp",
+                    "match": "\\b(select|apply|call|fold|self)\\b"
+                },
+                {
+                    "name": "entity.name.sums.products.gp",
+                    "match": "\\b(sum|vecsum|vecprod|sumdiv|sumdivmult|prod|prodeuler)\\b"
+                },
+                {
+                    "name": "entity.name.function.sorting.gp",
+                    "match": "\\b(vecsort|vecmin|vecmax|vecsearch)\\b"
+                },
+                {
+                    "name": "entity.name.function.io.gp",
+                    "match": "\\b(print|print1|printtex|printp|printsep|printsep1|printf|write|write1|writetex|writebin|read|readvec|readstr|input)\\b"
+                },
+                {
+                    "name": "entity.name.function.arithmetic.gp",
+                    "match": "\\b(binary|bittest|hammingweight|digits|sumdigits|fromdigits|ceil|floor|frac|round|truncate|gcd|lcm|content)\\b"
+                },
+                {
+                    "name": "entity.name.function.primes.gp",
+                    "match": "\\b(addprimes|removeprimes|primepi|prime|nextprime|precprime)\\b"
+                },
+                {
+                    "name": "entity.name.function.factorization.gp",
+                    "match": "\\b(factor|factorint|core|coredisc|primecert|primecertisvalid|primecertexport|factorback|zncoppersmith|divisorslenstra)\\b"
+                },
+                {
+                    "name": "entity.name.function.divisors.gp",
+                    "match": "\\b(omega|bigomega|divisors|numdiv|sigma|moebius|ramanujantau)\\b"
+                },
+                {
+                    "name": "entity.name.function.combinatorics.gp",
+                    "match": "\\b(factorial|binomial|bernreal|bernfrac|bernpol|fibonacci|stirling|numbpart|numtoperm|permtonum|permorder|permsign)\\b"
+                },
+                {
+                    "name": "entity.name.function.multiplicative.group.gp",
+                    "match": "\\b(eulerphi|znorder|fforder|znprimroot|ffprimroot|znstar|znlog|fflog|kronecker|hilbert)\\b"
+                },
+                {
+                    "name": "entity.name.function.miscellaneous.gp",
+                    "match": "\\b(sqrtint|sqrtnint|logint|chinese|gcdext|contfrac|contfracpnqn|bestappr|bestapprnf)\\b"
+                },
+                {
+                    "name": "entity.name.function.constructors.gp",
+                    "match": "\\b(vector|vectorv|vectorsmall|powers)\\b"
+                },
+                {
+                    "name": "entity.name.function.formal.padic.series.gp",
+                    "match": "\\b(valuation|truncate)\\b"
+                },
+                {
+                    "name": "entity.name.function.transcendental.gp",
+                    "match": "\\b(real|imag|abs|arg|sqrt|sqrtn|sin|cos|tan|cotan|sinc|asin|acos|atan|sinh|cosh|tanh|cotanh|asinh|acoh|atanh|log|log1p|exp|expm1)\\b"
+                },
+                {
+                    "name": "entity.name.function.tests.gp",
+                    "match": "\\b(isfundamental|isprime|ispseudoprime|issquarefree|issquare|ispower|isprimepower|ispseudoprimepower|ispowerful|istotient|ispolygonal|polisirreducible)\\b"
+                },
+                {
+                    "name": "entity.name.function.polynomials.rational.functions.gp",
+                    "match": "\\b(polrootsreal)\\b"
+                },
+                {
+                    "name": "entity.name.function.user.defined.gp",
+                    "match": "[[:alpha:]][_[[:alnum:]]]*(?=\\()"
+                }
+            ]
+        },
+        "variable":{
+            "name":"variable.name",
+            "match": "\\b[[:alpha:]][_[[:alnum:]]]*"
+        },
+        "punctuation": {
+            "name": "markup.punctuation",
+            "match": "[,;\\.\\[\\]\\(\\)\\{\\}]"
+        },
+        "whitespace" :{
+            "name": "constant.character.whitespace.gp",
+            "match": "\\s"
+        },
+        "unhandled":{
+            "name" : "invalid.gp",
+            "match": ".*"
+        }
+    },
+    "scopeName": "source.gp"
 }
