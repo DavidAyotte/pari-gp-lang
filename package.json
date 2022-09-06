@@ -2,7 +2,8 @@
     "name": "pari-gp-lang",
     "displayName": "PARI/GP",
     "description": "Syntax highlighting for PARI/GP",
-    "version": "0.0.1",
+    "icon": "icons/Logo_PARI-GP_Couleurs_L300px.png",
+    "version": "1.0.0",
     "engines": {
         "vscode": "^1.53.0"
     },
