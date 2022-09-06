@@ -9,6 +9,13 @@
     "categories": [
         "Programming Languages"
     ],
+    "publisher": "David Ayotte",
+	"license": "GPL-3.0",
+	"homepage": "https://github.com/DavidAyotte/pari-gp-lang",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/DavidAyotte/pari-gp-lang"
+	},
     "contributes": {
         "languages": [{
             "id": "gp",
