@@ -6,7 +6,7 @@ This package provides syntax highlighting for GP, the scripting language of the 
 
 Clone the repo and place it in your extensions folder located at:
 
-* Windows %USERPROFILE%\.vscode\extensions
-* Windows-WSL ~/.vscode-server/extensions
-* macOS ~/.vscode/extensions
-* Linux ~/.vscode/extensions
+* Windows: `%USERPROFILE%\.vscode\extensions`
+* Windows-WSL: `~/.vscode-server/extensions`
+* macOS: `~/.vscode/extensions`
+* Linux: `~/.vscode/extensions`
